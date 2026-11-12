@@ -59,7 +59,7 @@ srv.listen(8792, async () => {
     return titles
   }
 
-  await p.goto('http://localhost:8792/moji-monster/')
+  await p.goto(process.env.BASE || 'http://localhost:8792/moji-monster/') // BASE=公開URL で本番を試せる
   await p.evaluate(() => localStorage.clear())
   await p.reload()
   await p.waitForSelector('#writeBtn')
