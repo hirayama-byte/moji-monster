@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pastel-pink: #ffd6e7;
+  --color-pastel-pink-deep: #ff9ec7;
+  --color-pastel-mint: #c8f5e4;
+  --color-pastel-mint-deep: #7fe0c0;
+  --color-pastel-cream: #fff8e7;
+  --color-pastel-lavender: #e6d9ff;
+  --color-pastel-sky: #d6ecff;
+  --color-choco: #7a4e3a;
+
+  --font-kawaii: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Rounded Mplus 1c", "Yu Gothic UI", sans-serif;
+
+  --animate-bounce-soft: bounce-soft 1.6s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out infinite;
+  --animate-pop: pop 0.4s ease-out;
+  --animate-float-up: float-up 1.4s ease-out forwards;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-shake: shake 0.5s ease-in-out;
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px) rotate(-2deg); }
+    40% { transform: translateX(8px) rotate(2deg); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+
+  @keyframes bounce-soft {
+    0%, 100% { transform: translateY(0) scale(1, 1); }
+    50% { transform: translateY(-10px) scale(1.03, 0.97); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-8deg) scale(1.1); }
+    50% { transform: rotate(8deg) scale(1.1); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    70% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  @keyframes float-up {
+    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(1.3); opacity: 0; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-kawaii);
+  background: linear-gradient(160deg, var(--color-pastel-pink) 0%, var(--color-pastel-cream) 50%, var(--color-pastel-mint) 100%);
+  background-attachment: fixed;
+  color: var(--color-choco);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* ふりがな */
+ruby rt {
+  font-size: 0.5em;
+  color: color-mix(in srgb, var(--color-choco) 70%, white);
+}
+
+canvas {
+  touch-action: none;
+}
+
+/* アイテムが飛んでいくアニメーション（位置はJSから変数で渡す） */
+@keyframes fly-to-pet {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translate(var(--fly-x), var(--fly-y)) scale(0.4) rotate(360deg); opacity: 0; }
+}
+.animate-fly { animation: fly-to-pet 0.9s cubic-bezier(0.4, 0, 0.6, 1) forwards; }
